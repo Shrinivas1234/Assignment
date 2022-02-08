@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -134,59 +133,59 @@ int main(void)
     /* USER CODE END WHILE */
 	  uint16_t AD_RES = 0; //storing ADC value
 
-	  	  HAL_USART_Receive_IT(&huart1,  (uint16_t *)in, 16);
+	 	  	  HAL_USART_Receive_IT(&huart1,  (uint16_t *)in, 16);
 
 
-	  	 y= HAL_USART_RxCpltCallback(&husart1, in);
+	 	  	 y= HAL_USART_RxCpltCallback(&husart1, in);
 
-	  switch(y){
-	  /*************Mode_1*******************/
-	  case(0): _Bool A,B,C;
-	  	  	  A = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_13);
-	  	  	  B = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_14);
-	  	  	  C = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_15);
+	 	  switch(y){
+	 	  /*************Mode_1*******************/
+	 	  case(0): _Bool A,B,C;
+	 	  	  	  A = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_13);
+	 	  	  	  B = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_14);
+	 	  	  	  C = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_15);
 
-	  	  	while(y=0){
-	  	  	  if((!A)&&(!B)&&(!C))		{ TIM3->CCR1=0;}	//0% duty cycle
-	  	  	  else if((!A)&&(!B)&&(C))	{ TIM3->CCR1=62;}	//10%duty cycle
-	  	  	  else if((!A)&&(B)&&(!C))	{ TIM3->CCR1=124;}	//20%duty cycle
-	  	  	  else if((!A)&&(B)&&(C))	{ TIM3->CCR1=186;}	//30% duty cycle
-	  	  	  else if((A)&&(!B)&&(!C))	{ TIM3->CCR1=248;}	//40% duty cycle
-	  	  	  else if((A)&&(!B)&&(C))	{ TIM3->CCR1=310;}	//50% duty cycle
-	  	  	  else if((A)&&(B)&&(!C))	{ TIM3->CCR1=465;}	//75% duty cycle
-	  	  	  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);		//start PWM channel
-	  	  	  HAL_GPIO_WritePin (GPIOB, GPIO_PIN_5 ,  GPIO_PIN_SET);	//GPIO output is set high
-	  	  	  }
+	 	  	  	while(y=0){
+	 	  	  	  if((!A)&&(!B)&&(!C))		{ TIM3->CCR1=0;}	//0% duty cycle
+	 	  	  	  else if((!A)&&(!B)&&(C))	{ TIM3->CCR1=52;}	//10%duty cycle
+	 	  	  	  else if((!A)&&(B)&&(!C))	{ TIM3->CCR1=103;}	//20%duty cycle
+	 	  	  	  else if((!A)&&(B)&&(C))	{ TIM3->CCR1=154;}	//30% duty cycle
+	 	  	  	  else if((A)&&(!B)&&(!C))	{ TIM3->CCR1=206;}	//40% duty cycle
+	 	  	  	  else if((A)&&(!B)&&(C))	{ TIM3->CCR1=258;}	//50% duty cycle
+	 	  	  	  else if((A)&&(B)&&(!C))	{ TIM3->CCR1=387;}	//75% duty cycle
+	 	  	  	  else						{ TIM3->CCR1=516;}	//100% dutycycle
+	 	  	  	  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);		//start PWM channel
+	 	  	  	  HAL_GPIO_WritePin (GPIOB, GPIO_PIN_5 ,  GPIO_PIN_SET);	//GPIO output is set high
+	 	  	  	  }
 
 
-	  	  	  HAL_GPIO_WritePin (GPIOB, GPIO_PIN_5 ,  GPIO_PIN_RESET);	//GPIO output is set low
-	  	  	  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);		//stop PWM channel
-	  	  	  break;
+	 	  	  	  HAL_GPIO_WritePin (GPIOB, GPIO_PIN_5 ,  GPIO_PIN_RESET);	//GPIO output is set low
+	 	  	  	  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);		//stop PWM channel
+	 	  	  	  break;
 
-	  /**************Mode_2*****************/
-	  case(1):
-	  	  	  HAL_ADC_Start(&hadc1);
-	  while(y=1){
-	  	  	  AD_RES = HAL_ADC_GetValue(&hadc1);
+	 	  /**************Mode_2*****************/
+	 	  case(1):
+	 	  	  	  HAL_ADC_Start(&hadc1);
+	 	  while(y=1){
+	 	  	  	  AD_RES = HAL_ADC_GetValue(&hadc1);
 
-	  		  if(AD_RES=0)				{ TIM3->CCR1=0;}	//0% duty cycle
-	  		  else if(0<AD_RES<=250)	{ TIM3->CCR1=62;}	//10% duty cycle
-	  		  else if(250<AD_RES<=500)	{ TIM3->CCR1=124;}	//20% dutycycle
-	  		  else if(500<AD_RES<=1500)	{ TIM3->CCR1=186;}	//30% dutycycle
-	  		  else if(1500<AD_RES<=2000){ TIM3->CCR1=248;}	//40% dutycycle
-	  		  else if(2000<AD_RES<=3000){ TIM3->CCR1=310;}	//50% dutycycle
-	  		  else if(3000<AD_RES<=3500){ TIM3->CCR1=465;}	//75% dutycycle
-	  		  else 						{ TIM3->CCR1=620;}	//100% dutycycle
+	 	  		  if(AD_RES=0)				{ TIM3->CCR1=0;}	//0% duty cycle
+	 	  		  else if(0<AD_RES<=250)	{ TIM3->CCR1=52;}	//10% duty cycle
+	 	  		  else if(250<AD_RES<=500)	{ TIM3->CCR1=103;}	//20% dutycycle
+	 	  		  else if(500<AD_RES<=1500)	{ TIM3->CCR1=154;}	//30% dutycycle
+	 	  		  else if(1500<AD_RES<=2000){ TIM3->CCR1=206;}	//40% dutycycle
+	 	  		  else if(2000<AD_RES<=3000){ TIM3->CCR1=258;}	//50% dutycycle
+	 	  		  else if(3000<AD_RES<=3500){ TIM3->CCR1=387;}	//75% dutycycle
+	 	  		  else 						{ TIM3->CCR1=516;}	//100% dutycycle
 
-	  		  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);		//start PWM channel
-	  		  HAL_TIM_Base_Start_IT(&htim4);
-	  		  }
+	 	  		  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);		//start PWM channel
+	 	  		  HAL_TIM_Base_Start_IT(&htim4);
+	 	  		  }
 
-	  		  HAL_TIM_Base_Stop_IT(&htim4);
-	  		  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);		//stop PWM channel
-	  		  break;
-	  default:break;
-	  }
+	 	  		  HAL_TIM_Base_Stop_IT(&htim4);
+	 	  		  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);		//stop PWM channel
+	 	  		  break;
+	 	  default: break;
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -301,9 +300,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 31999;
+  htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 62;
+  htim3.Init.Period = 516;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -360,9 +359,9 @@ static void MX_TIM4_Init(void)
 
   /* USER CODE END TIM4_Init 1 */
   htim4.Instance = TIM4;
-  htim4.Init.Prescaler = 15999;
+  htim4.Init.Prescaler = 1000;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 250;
+  htim4.Init.Period = 4000;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
@@ -485,3 +484,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
